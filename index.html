@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="google-adsense-account" content="ca-pub-3806610967714181">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171c1b">
+  <meta name="description" content="A classic warehouse puzzle. Play an easy introduction and 50 original Sokoban levels with keyboard or touch, unlimited undo and saved progress.">
+  <title>SOKOBAN — The Warehouse Puzzle</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTPHWDLQ7K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WTPHWDLQ7K');
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="levels.js" defer></script>
+  <script src="engine.js" defer></script>
+  <script src="celebration.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="masthead">
+      <a class="collection" href="../games/">← Browse all games</a>
+      <a class="brand" href="../games/" aria-label="MoD-IT — Browse all games"><img src="assets/mod-it.jpg" alt="MoD-IT" width="600" height="323"></a>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><p class="eyebrow">THE WAREHOUSE PUZZLE <span> / EST. 1982</span></p><h1 id="title">SOKO<span>BAN</span><span class="title-dot">.</span></h1></div>
+        <p class="intro-copy">A little room. A lot to untangle.<br>Every crate has its place. Find it.</p>
+      </section>
+      <section class="cabinet" aria-label="Sokoban game">
+        <div class="dashboard">
+          <button id="levels" class="level-button" aria-haspopup="dialog"><span class="eyebrow">ORIGINAL COLLECTION</span><strong>Level <span id="level">00</span><small> / 50</small> <span class="grid-icon" aria-hidden="true">▦</span></strong></button>
+          <div class="stats"><div><span>MOVES</span><strong id="moves">0</strong></div><div><span>PUSHES</span><strong id="pushes">0</strong></div><div><span>ON TARGET</span><strong id="targets">0 / 3</strong></div></div>
+        </div>
+        <div class="board-wrap"><canvas id="board" tabindex="0" aria-label="Sokoban board. Use arrow keys to move and push crates onto targets. Z to undo." role="img"></canvas></div>
+        <div class="board-caption"><span><i class="live-dot"></i> <span id="status" role="status">Push every crate onto a diamond.</span></span><span id="best">NO RECORD YET</span></div>
+        <div class="controls">
+          <div class="actions"><button id="undo" title="Undo (Z)">↶ <span>Undo</span><kbd>Z</kbd></button><button id="redo" title="Redo (Y)">↷ <span>Redo</span><kbd>Y</kbd></button><button id="restart" title="Restart (R)">⟳ <span>Restart</span><kbd>R</kbd></button></div>
+          <button id="help" class="help" aria-haspopup="dialog">How to play <span aria-hidden="true">?</span></button>
+        </div>
+      </section>
+      <div class="below-board">
+        <div class="field-notes"><p class="eyebrow">START EASY. EXPLORE FIFTY CLASSICS.</p><p>Push, never pull. Only one crate at a time.<br>Take your time — a good move is worth the wait.</p><div class="legend"><span><i class="legend-box"></i> Crate</span><span><i class="legend-goal">◇</i> Target</span><span><i class="legend-box done"></i> In place</span></div></div>
+        <div class="touch-panel"><div class="dpad" role="group" aria-label="Movement controls"><button data-dir="up" aria-label="Move up">↑</button><button data-dir="left" aria-label="Move left">←</button><span aria-hidden="true">✣</span><button data-dir="right" aria-label="Move right">→</button><button data-dir="down" aria-label="Move down">↓</button></div><p>Arrow keys or tap the pad.<br>Swipe the board to move.</p></div>
+      </div>
+      <p id="storage-warning" role="status" hidden>Saving is unavailable in this browser. You can still play; progress lasts until you leave.</p>
+    </main>
+    <footer><p>Created by <a href="https://www.linkedin.com/in/grzegorz-byrka-81175515/" target="_blank" rel="noopener noreferrer">Grzegorz Byrka ↗<span class="sr-only"> on LinkedIn (opens in a new tab)</span></a></p><p>Classic puzzles by Thinking Rabbit · <a href="THIRD_PARTY.md">Credits</a></p></footer>
+  </div>
+  <dialog id="level-dialog" aria-labelledby="level-title"><div class="dialog-top"><p class="eyebrow">ORIGINAL COLLECTION</p><button data-close aria-label="Close level selection">×</button></div><h2 id="level-title">Choose your challenge.</h2><p>Start with three easy crates on level 0, then explore 50 classics.<br><span id="completed-count">0</span> of 51 completed · ✓ marks a solved level.</p><div id="level-grid"></div></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-top"><p class="eyebrow">WAREHOUSE HANDBOOK</p><button data-close aria-label="Close instructions">×</button></div><h2 id="help-title">Everything in its place.</h2><p>Move the warehouse keeper and push every wooden crate onto a diamond target. A placed crate turns green.</p><ul><li>Use the <strong>arrow keys</strong> or <strong>W A S D</strong> on your keyboard.</li><li>On a touchscreen, <strong>tap the direction pad</strong> or <strong>swipe the board</strong>. Hold a pad button to keep moving.</li><li>You can push one crate at a time. You cannot pull crates or push them through walls.</li><li>A crate in a corner can get stuck. Use <strong>Undo / Z</strong> to rethink any move, <strong>Redo / Y</strong> to restore it, or <strong>Restart / R</strong> to start over.</li></ul><p>No timer. No lives. Completed levels and records are saved on this device in a cookie for one year, renewed when you play. Your current position is also saved in browser storage. Clearing site data removes these saves.</p><button class="primary" data-close>Got it. Let's play →</button></dialog>
+  <dialog id="restart-dialog" aria-labelledby="restart-title"><p class="eyebrow">A FRESH PERSPECTIVE</p><h2 id="restart-title">Restart this level?</h2><p>Your moves on this attempt will be cleared. Completed levels and personal records stay saved.</p><div class="dialog-actions"><button data-close>Keep playing</button><button id="confirm-restart" class="primary">Restart level</button></div></dialog>
+  <dialog id="win-dialog" aria-labelledby="win-title"><div class="win-medal" aria-hidden="true">✓</div><p class="eyebrow">WAREHOUSE IN ORDER</p><h2 id="win-title">A place for everything.</h2><p id="win-summary"></p><p id="win-record"></p><div class="dialog-actions"><button id="review">Review board</button><button id="next" class="primary">Next level →</button></div></dialog>
+  <div id="celebration" aria-hidden="true" hidden>
+    <canvas></canvas>
+    <div class="victory-moment"><div class="victory-emblem">✓</div><span>EVERYTHING IN ITS PLACE</span><strong>Beautifully done.</strong><i>One clever move at a time.</i></div>
+  </div>
+  <noscript>This game needs JavaScript. Please enable it to play Sokoban.</noscript>
+</body>
+</html>
