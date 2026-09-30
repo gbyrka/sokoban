@@ -7,13 +7,10 @@
   <meta name="theme-color" content="#171c1b">
   <meta name="description" content="A classic warehouse puzzle. Play an easy introduction and 50 original Sokoban levels with keyboard or touch, unlimited undo and saved progress.">
   <title>SOKOBAN — The Warehouse Puzzle</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTPHWDLQ7K"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-WTPHWDLQ7K');
-  </script>
+  <link rel="stylesheet" href="./ads.css?v=adlaunch1">
+  <script src="./monetization.js?v=adlaunch1"></script>
+  <script id="adsense-script" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3806610967714181"
+          crossorigin="anonymous" onerror="window.MoDITAds.unavailable()"></script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script src="levels.js" defer></script>
@@ -52,6 +49,16 @@
     </main>
     <footer><p>Created by <a href="https://www.linkedin.com/in/grzegorz-byrka-81175515/" target="_blank" rel="noopener noreferrer">Grzegorz Byrka ↗<span class="sr-only"> on LinkedIn (opens in a new tab)</span></a></p><p>Classic puzzles by Thinking Rabbit · <a href="THIRD_PARTY.md">Credits</a></p></footer>
   </div>
+  <aside class="ad-placement ad-placement-game" aria-label="Advertisement">
+    <p class="ad-placement-label">ADVERTISEMENT</p>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3806610967714181"
+         data-ad-slot="9380002810"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </aside>
+  <footer class="privacy-footer"><a href="../games/privacy.html">Privacy Policy</a></footer>
   <dialog id="level-dialog" aria-labelledby="level-title"><div class="dialog-top"><p class="eyebrow">ORIGINAL COLLECTION</p><button data-close aria-label="Close level selection">×</button></div><h2 id="level-title">Choose your challenge.</h2><p>Start with three easy crates on level 0, then explore 50 classics.<br><span id="completed-count">0</span> of 51 completed · ✓ marks a solved level.</p><div id="level-grid"></div></dialog>
   <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-top"><p class="eyebrow">WAREHOUSE HANDBOOK</p><button data-close aria-label="Close instructions">×</button></div><h2 id="help-title">Everything in its place.</h2><p>Move the warehouse keeper and push every wooden crate onto a diamond target. A placed crate turns green.</p><ul><li>Use the <strong>arrow keys</strong> or <strong>W A S D</strong> on your keyboard.</li><li>On a touchscreen, <strong>tap the direction pad</strong> or <strong>swipe the board</strong>. Hold a pad button to keep moving.</li><li>You can push one crate at a time. You cannot pull crates or push them through walls.</li><li>A crate in a corner can get stuck. Use <strong>Undo / Z</strong> to rethink any move, <strong>Redo / Y</strong> to restore it, or <strong>Restart / R</strong> to start over.</li></ul><p>No timer. No lives. Completed levels and records are saved on this device in a cookie for one year, renewed when you play. Your current position is also saved in browser storage. Clearing site data removes these saves.</p><button class="primary" data-close>Got it. Let's play →</button></dialog>
   <dialog id="restart-dialog" aria-labelledby="restart-title"><p class="eyebrow">A FRESH PERSPECTIVE</p><h2 id="restart-title">Restart this level?</h2><p>Your moves on this attempt will be cleared. Completed levels and personal records stay saved.</p><div class="dialog-actions"><button data-close>Keep playing</button><button id="confirm-restart" class="primary">Restart level</button></div></dialog>

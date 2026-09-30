@@ -19,3 +19,7 @@ node sokoban/tests/browser.cjs
 ```
 
 See [THIRD_PARTY.md](THIRD_PARTY.md) for puzzle attribution.
+
+## Advertising and consent
+
+Publish `ads.css` and `monetization.js` alongside the game. One responsive `game_footer` unit sits below the complete game and controls, separated by 150px. It does not reduce the board or overlay play. Google Analytics waits for Google CMP permission. Keep these two files in sync with the other projects and update their `?v=` URLs when changing them. See the sibling games README for the AdSense Consent Mode settings and root `ads.txt` deployment.
