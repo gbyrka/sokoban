@@ -238,7 +238,7 @@
     });
     for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,stopHold);
     // Native clicks support assistive technology and keyboard activation, while pointer input is handled above.
-    button.addEventListener('click',event=>{if(event.detail===0)step(button.dataset.dir);});
+    button.addEventListener('click',event=>{if(event.detail===0&&!event.pointerType)step(button.dataset.dir);});
     button.addEventListener('contextmenu',event=>event.preventDefault());
   });
   canvas.addEventListener('pointerdown',event=>{if(event.button!==0||swipe)return;canvas.focus({preventScroll:true});canvas.setPointerCapture(event.pointerId);swipe={id:event.pointerId,x:event.clientX,y:event.clientY};});

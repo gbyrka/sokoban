@@ -20,6 +20,10 @@ node sokoban/tests/browser.cjs
 
 See [THIRD_PARTY.md](THIRD_PARTY.md) for puzzle attribution.
 
+## Publication
+
+The public game is `https://mod-it.games/sokoban/`, listed in the catalog's **Keyboard and mobile** section. In this repository's Settings → Pages, select **Deploy from a branch**, **main**, **/(root)**. The custom domain is inherited from the `gbyrka.github.io` user site; do not add a separate CNAME. Publish the root HTML, JavaScript, CSS and `assets/` together. There is no build step.
+
 ## Advertising and consent
 
-Publish `ads.css` and `monetization.js` alongside the game. One responsive `game_footer` unit sits below the complete game and controls, separated by 150px. It does not reduce the board or overlay play. Google Analytics waits for Google CMP permission. Keep these two files in sync with the other projects and update their `?v=` URLs when changing them. See the sibling games README for the AdSense Consent Mode settings and root `ads.txt` deployment.
+Publish `ads.css` and `monetization.js` alongside the game. One responsive `game_footer` unit sits below the complete game and controls, separated on both sides by 180px. It does not reduce the board or overlay play. Google Analytics waits for Google CMP permission. Keep these two files in sync with the other projects and update their `?v=` URLs when changing them. See the sibling games README for the AdSense Consent Mode settings and root `ads.txt` deployment.

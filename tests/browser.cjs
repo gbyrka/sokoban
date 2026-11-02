@@ -4,8 +4,14 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
 (async () => {
   const browser = await chromium.launch({headless: true, args: ['--no-sandbox']});
   const errors = [];
-  const context = await browser.newContext({viewport: {width: 1280, height: 1000}});
-  await context.route('https://www.googletagmanager.com/**', r => r.abort());
+  const newContext = async options => {
+    const context = await browser.newContext(options);
+    await context.route('**/*', route => new URL(route.request().url()).origin === new URL(url).origin
+      ? route.continue()
+      : route.fulfill({contentType: 'text/javascript', body: ''}));
+    return context;
+  };
+  const context = await newContext({viewport: {width: 1280, height: 1000}});
   let page = await context.newPage();
   page.on('pageerror', e => errors.push(e.message));
   const press = async keys => { for (const key of keys) await page.keyboard.press(key); };
@@ -53,8 +59,17 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
     await page.click('#levels'); assert.equal(await page.locator('#level-grid button').count(), 51);
     assert.ok(await page.locator('#level-grid button').first().evaluate(b => b.classList.contains('solved')));
     await page.keyboard.press('Escape');
+    // Touch clicks can have detail=0 too; they must not repeat the pointerdown move.
+    const touch = await newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    const touchPage = await touch.newPage(); await touchPage.goto(url);
+    await touchPage.locator('[data-dir=up]').tap();
+    assert.equal(await touchPage.textContent('#moves'), '1', 'one tap performs one move');
+    await touchPage.locator('#undo').tap();
+    await touchPage.locator('[data-dir=up]').focus(); await touchPage.keyboard.press('Enter');
+    assert.equal(await touchPage.textContent('#moves'), '1', 'keyboard activation of the direction pad still works');
+    await touch.close();
     // New browser context, cookie only: a later visit without local storage.
-    const returning = await browser.newContext();
+    const returning = await newContext();
     await returning.addCookies(cookies);
     const later = await returning.newPage(); await later.goto(url);
     await later.click('#levels');
@@ -62,7 +77,7 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
     assert.ok(await later.locator('#level-grid button').first().evaluate(b => b.classList.contains('solved')));
     await returning.close();
     // Original level 1 was index 0: migrate both the record and in-progress path.
-    const legacyContext = await browser.newContext();
+    const legacyContext = await newContext();
     await legacyContext.addInitScript(() => {
       localStorage.clear(); document.cookie = 'sokoban_completed_v2=; Max-Age=0; Path=/';
       localStorage.setItem('sokoban_progress_v1', JSON.stringify({version:1,index:0,records:{0:{moves:100,pushes:30}},path:['up']}));
@@ -84,7 +99,7 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
     }
     await page.screenshot({path:'/tmp/games-preview/sokoban-desktop.png',fullPage:true});
     // Cookies still save completion when localStorage is disabled.
-    const restricted = await browser.newContext();
+    const restricted = await newContext();
     await restricted.addCookies(cookies);
     await restricted.addInitScript(() => {
       Object.defineProperty(window, 'localStorage', {get() {throw new Error('blocked');}});
@@ -93,7 +108,7 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
     assert.equal(await fallback.textContent('#completed-count'), '1');
     assert.match(await fallback.textContent('#storage-warning'), /saved in a cookie/);
     await restricted.close();
-    const noCookies = await browser.newContext();
+    const noCookies = await newContext();
     await noCookies.addInitScript(() => {
       Object.defineProperty(document, 'cookie', {get() {return '';}, set() {}});
     });
@@ -108,7 +123,7 @@ const url = process.env.SOKOBAN_URL || 'http://127.0.0.1:8766/sokoban/';
     await localOnly.locator('#board').dispatchEvent('pointerup', {pointerId: 1, button: 0, clientX: 100, clientY: 100});
     assert.equal(await localOnly.textContent('#moves'), '1');
     await noCookies.close();
-    const noStorage = await browser.newContext();
+    const noStorage = await newContext();
     await noStorage.addInitScript(() => {
       Object.defineProperty(document, 'cookie', {get() {return '';}, set() {}});
       Object.defineProperty(window, 'localStorage', {get() {throw new Error('blocked');}});
