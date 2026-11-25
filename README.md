@@ -26,4 +26,4 @@ The public game is `https://mod-it.games/sokoban/`, listed in the catalog's **Ke
 
 ## Advertising and consent
 
-Publish `ads.css` and `monetization.js` alongside the game. One responsive `game_footer` unit sits below the complete game and controls, separated on both sides by 180px. It does not reduce the board or overlay play. Google Analytics waits for Google CMP permission. Keep these two files in sync with the other projects and update their `?v=` URLs when changing them. See the sibling games README for the AdSense Consent Mode settings and root `ads.txt` deployment.
+Publish `ads.css` and `monetization.js` alongside the game. One responsive `game_footer` unit sits below the complete game and controls, separated on both sides by 180px. It does not reduce the board or overlay play. Google Analytics follows the collection’s consent flow. Keep these two files in sync with the other projects and update their `?v=` URLs when changing them. See the sibling games README for the AdSense Consent Mode settings and root `ads.txt` deployment.
